@@ -1,23 +1,48 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <v-header :seller="seller"></v-header>
+    <div class="tab">
+      <div class="tab-item">商品</div>
+      <div class="tab-item">评价</div>
+      <div class="tab-item">商家</div>
+    </div>
+    <div class="content">
+      i am content
+    </div>
   </div>
 </template>
 
 <script>
+import VHeader from './components/header'
+
 export default {
-  name: 'App'
+  data () {
+    return {
+      seller: {}
+    }
+  },
+  created () {
+    this.$http.post('api/seller').then((res) => {
+      console.log(res.data)
+    }, (error) => {
+      console.log(error)
+    })
+  },
+  components: {
+    VHeader
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  .tab {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+  }
+  .tab-item {
+    flex: 1;
+    text-align: center;
+  }
 </style>
