@@ -1,7 +1,7 @@
 'use strict'
 const utils = require('./utils')
 const webpack = require('webpack')
-const express = require('express')
+var express = require('express')
 const config = require('../config')
 const merge = require('webpack-merge')
 const path = require('path')
@@ -132,8 +132,8 @@ module.exports = new Promise((resolve, reject) => {
           messages: [`Your application is running here: http://${devWebpackConfig.devServer.host}:${port}`],
         },
         onErrors: config.dev.notifyOnErrors
-          ? utils.createNotifierCallback()
-          : undefined
+        ? utils.createNotifierCallback()
+        : undefined
       }))
 
       resolve(devWebpackConfig)
