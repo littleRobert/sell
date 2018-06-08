@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import VHeader from './components/header'
+import VHeader from './components/header/header'
 
 export default {
   data () {
@@ -23,7 +23,7 @@ export default {
   },
   created () {
     this.$http.post('api/seller').then((res) => {
-      console.log(res.data)
+      this.seller = res.data
     }, (error) => {
       console.log(error)
     })
