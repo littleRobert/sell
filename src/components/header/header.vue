@@ -33,29 +33,10 @@
     <div class="detail">
       <div class="detail-wrapper clearfix">
         <div class="detail-main">
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
-          <p>{{ seller.bulletin }}</p>
+          <h1 class="name">{{ seller.name }}</h1>
+          <div class="star-wrapper">
+            <v-star :size="48" :score="seller.score"></v-star>
+          </div>
         </div>
       </div>
       <div class="detail-close">
@@ -66,6 +47,8 @@
 </template>
 
 <script>
+import VStar from '../star/star'
+
 export default {
   props: {
     seller: {
@@ -78,6 +61,9 @@ export default {
   data () {
     return {
     }
+  },
+  components: {
+    VStar
   }
 }
 </script>
@@ -206,11 +192,23 @@ export default {
       overflow: auto
       background: rgba(1, 17, 27, 0.8)
       .detail-wrapper
+        width: 100%
         min-height: 100%
         position: relative;
         .detail-main
           padding-top: 64px
           padding-bottom: 64px
+          .name
+            font-size: 16px
+            text-align: center
+            font-weight: 700
+            color: rgb(255, 255, 255)
+            line-height: 16px
+            width: 100%
+          .star-wrapper
+            margin-top: 18px
+            padding: 2px 0
+            text-align: center
       .detail-close
         position: relative
         width: 32px
