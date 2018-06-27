@@ -20,12 +20,12 @@
       </div>
       <div v-if="seller.supports" class="support-count" @click="showDetail">
         <span class="count">{{ seller.supports.length }}个</span>
-        <i class="font-awesome-icon"><font-awesome-icon icon="coffee" /></i>
+        <i class="icon-angle-right"><icon name="angle-right" height="10px"></icon></i>
       </div>
     </div>
     <div class="bulletin-wrapper">
       <span class="bulletin-title"></span><span class="bulletin-text">{{ seller.bulletin }}</span>
-      <i class="fa fa-angle-right"></i>
+      <i class="icon-angle-right"><icon name="angle-right" height="10px"></icon></i>
     </div>
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
@@ -100,7 +100,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  @import "../../common/stylus/mixin.stylus"
+  @import "../../common/stylus/mixin.stylus";
   .header
     position: relative
     overflow: hidden
@@ -173,9 +173,10 @@ export default {
         .count
           vertical-align: top
           font-size: 10px
-        .icon-keyboard_arrow_right
+        .icon-angle-right
+          vertical-align:middle
+          display: inline-block
           margin-left: 2px
-          line-height: 24px
           font-size: 10px
     .bulletin-wrapper
       position: relative
@@ -199,7 +200,7 @@ export default {
         vertical-align:top
         margin: 0 4px
         font-size: 10px
-      .icon-keyboard_arrow_right
+      .icon-angle-right
         position: absolute
         font-size: 10px
         right: 12px
