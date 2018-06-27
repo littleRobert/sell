@@ -7,14 +7,14 @@
       <div class="tab-item">商家</div>
     </div>
     <div class="content">
-      i am content
+      <v-goods></v-goods>
     </div>
   </div>
 </template>
 
 <script>
 import VHeader from './components/header/header'
-
+import VGoods from './components/goods/goods'
 export default {
   data () {
     return {
@@ -29,7 +29,7 @@ export default {
     })
   },
   components: {
-    VHeader
+    VHeader, VGoods
   }
 }
 </script>

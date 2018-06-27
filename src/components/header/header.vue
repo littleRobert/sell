@@ -20,48 +20,50 @@
       </div>
       <div v-if="seller.supports" class="support-count" @click="showDetail">
         <span class="count">{{ seller.supports.length }}个</span>
-        <i class="icon-keyboard_arrow_right"></i>
+        <i class="font-awesome-icon"><font-awesome-icon icon="coffee" /></i>
       </div>
     </div>
     <div class="bulletin-wrapper">
       <span class="bulletin-title"></span><span class="bulletin-text">{{ seller.bulletin }}</span>
-      <i class="icon-keyboard_arrow_right"></i>
+      <i class="fa fa-angle-right"></i>
     </div>
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
-    <div v-show="detailShow" class="detail">
-      <div class="detail-wrapper clearfix">
-        <div class="detail-main">
-          <h1 class="name">{{ seller.name }}</h1>
-          <div class="star-wrapper">
-            <v-star :size="48" :score="seller.score"></v-star>
-          </div>
-          <div class="title">
-            <div class="line"></div>
-            <div class="text">优惠信息</div>
-            <div class="line"></div>
-          </div>
-          <ul v-if="seller.supports" class="supports">
-            <li class="support-item" v-for="(item, index) in seller.supports">
-              <span class="icon" :class="classMap[seller.supports[index].type]"></span>
-              <span class="text">{{ seller.supports[index].description }}</span>
-            </li>
-          </ul>
-          <div class="title">
-            <div class="line"></div>
-            <div class="text">商家公告</div>
-            <div class="line"></div>
-          </div>
-          <div class="bulletin">
-            <p class="content">{{ seller.bulletin }}</p>
+    <transition name="detail-trans">
+      <div v-if="detailShow" class="detail">
+        <div class="detail-wrapper clearfix">
+          <div class="detail-main">
+            <h1 class="name">{{ seller.name }}</h1>
+            <div class="star-wrapper">
+              <v-star :size="48" :score="seller.score"></v-star>
+            </div>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">优惠信息</div>
+              <div class="line"></div>
+            </div>
+            <ul v-if="seller.supports" class="supports">
+              <li class="support-item" v-for="(item, index) in seller.supports">
+                <span class="icon" :class="classMap[seller.supports[index].type]"></span>
+                <span class="text">{{ seller.supports[index].description }}</span>
+              </li>
+            </ul>
+            <div class="title">
+              <div class="line"></div>
+              <div class="text">商家公告</div>
+              <div class="line"></div>
+            </div>
+            <div class="bulletin">
+              <p class="content">{{ seller.bulletin }}{{ seller.bulletin }}{{ seller.bulletin }}{{ seller.bulletin }}</p>
+            </div>
           </div>
         </div>
+        <div class="detail-close" @click="hideDetail">
+          <i class="icon-close"></i>
+        </div>
       </div>
-      <div class="detail-close" @click="hideDetail">
-        <i class="icon-close"></i>
-      </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -99,7 +101,6 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixin.stylus"
-  @import "../../common/stylus/icon.stylus"
   .header
     position: relative
     overflow: hidden
@@ -211,6 +212,10 @@ export default {
       z-index: -1
       filter: blur(10px)
     .detail
+      &.detail-trans-enter-active,  &.detail-trans-leave-active
+        transition: opacity .5s
+      &.detail-trans-enter, &.detail-trans-leave-to
+        opacity: 0
       position: fixed
       z-index: 100
       top: 0
@@ -219,6 +224,7 @@ export default {
       height: 100%
       overflow: auto
       background: rgba(1, 17, 27, 0.8)
+      backdrop-filter: blur(10px)
       .detail-wrapper
         width: 100%
         min-height: 100%
