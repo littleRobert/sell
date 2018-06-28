@@ -7,7 +7,7 @@
       <div class="tab-item">商家</div>
     </div>
     <div class="content">
-      <v-goods></v-goods>
+      <v-goods :seller="seller"></v-goods>
     </div>
   </div>
 </template>
@@ -34,15 +34,21 @@ export default {
 }
 </script>
 
-<style scoped>
-  .tab {
-    display: flex;
-    width: 100%;
-    height: 40px;
-    line-height: 40px;
-  }
-  .tab-item {
-    flex: 1;
-    text-align: center;
-  }
+<style lang="stylus" scoped>
+  @import "./common/stylus/mixin.stylus"
+  .tab
+    display: flex
+    width: 100%
+    height: 40px
+    line-height: 40px
+    border-1px(rgba(7, 17, 27, 0.1))
+    .tab-item
+      flex: 1
+      text-align: center
+      & > a
+        display: block
+        font-size: 14px
+        color: rgb(77, 85, 93)
+        &.active
+          color: rgb(240, 20, 20)
 </style>
