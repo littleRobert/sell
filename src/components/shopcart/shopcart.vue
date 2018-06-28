@@ -7,10 +7,14 @@
             <i class="fas fa-shopping-cart"></i>
           </div>
         </div>
-        <div class="price">￥10</div>
+        <div class="price">￥{{ totalPrice }}</div>
         <div class="desc">另需配送费￥{{ deliveryPrice }}</div>
       </div>
-      <div class="content-right"></div>
+      <div class="content-right">
+        <div class="pay">
+          ￥{{ minPrice }}起送
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,6 +22,17 @@
 <script >
 export default {
   props: {
+    selectFoods: {
+      type: Array,
+      default () {
+        return [
+          {
+            price: 0,
+            count: 0
+          }
+        ]
+      }
+    },
     deliveryPrice: {
       type: Number,
       default: 0
@@ -25,6 +40,15 @@ export default {
     minPrice: {
       type: Number,
       default: 0
+    }
+  },
+  computed: {
+    totalPrice () {
+      let total = 0;
+      this.selectFoods.forEach((food) => {
+        total += food.price * food.count;
+      });
+      return total;
     }
   }
 }
@@ -89,4 +113,12 @@ export default {
       .content-right
         flex: 0 0 105
         width: 105px
+        .pay
+          height: 48px
+          line-height: 48px
+          text-align: center
+          font-size: 12px
+          font-weight: 700
+          color: rgba(255, 255, 255, 0.4)
+          background: #2b333b
 </style>
