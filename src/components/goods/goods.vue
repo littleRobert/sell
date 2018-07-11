@@ -27,6 +27,9 @@
                 <div class="price">
                   <span class="now">￥{{ food.price }}</span><span v-if="food.oldPrice !== ''" class="old">￥{{ food.oldPrice }}</span>
                 </div>
+                <div class="carcontrol-wrapper">
+                  <v-cartcontrol :food="food"></v-cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
@@ -40,6 +43,7 @@
 <script>
 import BScroll from 'better-scroll'
 import VShopCart from '../shopcart/shopcart'
+import VCartcontrol from '../cartcontrol/cartcontrol'
 
 export default {
   props: {
@@ -95,6 +99,7 @@ export default {
       });
 
       this.foodScroll = new BScroll(this.$refs.foodsWrapper, {
+        click: true,
         probeType: 3
       });
 
@@ -103,7 +108,7 @@ export default {
       })
     },
     // 定位食物种类
-    _calculateHeight() {
+    _calculateHeight () {
       let foodList = this.$refs.foodsWrapper.getElementsByClassName('food-list-hook');
       let height = 0;
       this.listHeight.push(height);
@@ -115,7 +120,8 @@ export default {
     }
   },
   components: {
-    VShopCart
+    VShopCart,
+    VCartcontrol
   }
 }
 
@@ -222,4 +228,8 @@ export default {
               text-decoration: line-through
               font-size: 10px
               color: rgb(147, 153, 159)
+          .carcontrol-wrapper
+            position: absolute
+            right: 0
+            bottom: 0
 </style>
