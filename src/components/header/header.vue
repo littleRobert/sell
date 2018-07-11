@@ -20,12 +20,12 @@
       </div>
       <div v-if="seller.supports" class="support-count" @click="showDetail">
         <span class="count">{{ seller.supports.length }}个</span>
-        <i class="icon-angle-right"><icon name="angle-right" height="10px"></icon></i>
+        <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
     <div class="bulletin-wrapper">
       <span class="bulletin-title"></span><span class="bulletin-text">{{ seller.bulletin }}</span>
-      <i class="icon-angle-right"><icon name="angle-right" height="10px"></icon></i>
+      <i class="icon-keyboard_arrow_right"></i>
     </div>
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
@@ -173,10 +173,9 @@ export default {
         .count
           vertical-align: top
           font-size: 10px
-        .icon-angle-right
-          vertical-align:middle
-          display: inline-block
+        .icon-keyboard_arrow_right
           margin-left: 2px
+          line-height: 24px
           font-size: 10px
     .bulletin-wrapper
       position: relative
@@ -200,7 +199,7 @@ export default {
         vertical-align:top
         margin: 0 4px
         font-size: 10px
-      .icon-angle-right
+      .icon-keyboard_arrow_right
         position: absolute
         font-size: 10px
         right: 12px
