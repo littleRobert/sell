@@ -1,11 +1,10 @@
 <template>
   <div class="cartcontrol">
-    <transition class="move">
-      <div class="cart-decrease"
+    <transition name="move">
+      <div class="cart-decrease icon-remove_circle_outline"
            v-show="food.count > 0"
            @click="decreaseCart"
       >
-          <span class="inner icon-remove_circle_outline"></span>
       </div>
     </transition>
     <div class="cart-count" v-show="food.count > 0">{{ food.count }}</div>
@@ -35,6 +34,7 @@ export default {
       } else {
         this.food.count++
       }
+      this.$emit('carAdd', event.target)
     },
     // 减少商品数量
     decreaseCart (event) {
@@ -56,10 +56,14 @@ export default {
     .cart-decrease
       display: inline-block
       padding: 6px
-      .inner
-        line-height: 24px
-        font-size: 24px
-        color: rgb(0, 160, 220)
+      line-height: 24px
+      font-size: 24px
+      color: rgb(0, 160, 220)
+      &.move-enter-active, &.move-leave-active
+        transition: all .2s linear
+      &.move-enter, &.move-leave-to
+        transform: translate3D(36px, 0, 0) rotate(180deg)
+        opacity: 0
     .cart-count
       display: inline-block
       vertical-align: top

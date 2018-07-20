@@ -4,16 +4,11 @@ import Vue from 'vue'
 import App from './App'
 import VueResource from 'vue-resource'
 import VueRouter from 'vue-router'
-import VueAwesome from 'vue-awesome'
-import Icon from 'vue-awesome/components/Icon'
 
-import 'vue-awesome/icons'
 import './common/stylus/index.stylus'
 
 Vue.use(VueRouter);
 Vue.use(VueResource);
-Vue.use(VueAwesome);
-Vue.component('icon', Icon)
 
 let router = new VueRouter({
   mode: 'history',

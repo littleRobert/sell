@@ -28,7 +28,7 @@
                   <span class="now">￥{{ food.price }}</span><span v-if="food.oldPrice !== ''" class="old">￥{{ food.oldPrice }}</span>
                 </div>
                 <div class="carcontrol-wrapper">
-                  <v-cartcontrol :food="food"></v-cartcontrol>
+                  <v-cartcontrol :food="food" @click></v-cartcontrol>
                 </div>
               </div>
             </li>
@@ -36,7 +36,7 @@
         </li>
       </ul>
     </div>
-    <v-shop-cart :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></v-shop-cart>
+    <v-shop-cart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></v-shop-cart>
   </div>
 </template>
 
@@ -69,6 +69,17 @@ export default {
         }
       }
       return 0
+    },
+    selectFoods () {
+      let foods = [];
+      this.goods.forEach((good) => {
+        good.foods.forEach((food) => {
+          if (food.count) {
+            foods.push(food)
+          }
+        })
+      });
+      return foods
     }
   },
   created () {
@@ -122,12 +133,15 @@ export default {
   components: {
     VShopCart,
     VCartcontrol
+  },
+  events: {
+
   }
 }
 
 </script>
 
-<style lang="stylus" rel="stylesheet/stylus">
+<style lang="stylus" rel="stylesheet/stylus" scoped>
   @import "../../common/stylus/mixin.stylus"
   .goods
     display: flex

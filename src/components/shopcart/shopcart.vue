@@ -17,6 +17,13 @@
         </div>
       </div>
     </div>
+    <div class="ball-container">
+      <div v-for="ball in balls" v-show="ball.show">
+        <transition>
+          <div class="inner"></div>
+        </transition>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -41,6 +48,27 @@ export default {
     minPrice: {
       type: Number,
       default: 20
+    }
+  },
+  data () {
+    return {
+      balls: [
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+      ]
     }
   },
   computed: {
@@ -69,17 +97,10 @@ export default {
       }
     },
     payClass () {
-      if (this.totalPrice > this.minPrice) {
+      if (this.totalPrice >= this.minPrice) {
         return 'enough'
       } else {
         return 'not-enough'
-      }
-    },
-    test () {
-      for (var i; i < 5; i++) {
-        setTimeout(function () {
-          console.log(i)
-        }, 0)
       }
     }
   }
@@ -87,7 +108,7 @@ export default {
 
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
   .shopcart
     position: fixed
     left: 0
@@ -176,4 +197,15 @@ export default {
           &.enough
             background: #00b43c
             color: #fff
+    .ball-container
+      .ball
+        position: fixed
+        left: 32px
+        bottom: 22px
+        z-index: 200
+        .inner
+          width: 16px
+          height: 16px
+          border-radius: 50%
+          background: rgb(0, 160, 220)
 </style>
