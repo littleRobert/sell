@@ -28,7 +28,7 @@
                   <span class="now">￥{{ food.price }}</span><span v-if="food.oldPrice !== ''" class="old">￥{{ food.oldPrice }}</span>
                 </div>
                 <div class="carcontrol-wrapper">
-                  <v-cartcontrol :food="food" @click></v-cartcontrol>
+                  <v-cartcontrol :food="food" @carAdd="ballDrop"></v-cartcontrol>
                 </div>
               </div>
             </li>
@@ -36,7 +36,7 @@
         </li>
       </ul>
     </div>
-    <v-shop-cart :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></v-shop-cart>
+    <v-shop-cart ref="shopcart" :select-foods="selectFoods" :delivery-price="seller.deliveryPrice" :min-price="seller.minPrice"></v-shop-cart>
   </div>
 </template>
 
@@ -113,7 +113,6 @@ export default {
         click: true,
         probeType: 3
       });
-
       this.foodScroll.on('scroll', (pos) => {
         this.scrollY = Math.abs(Math.round(pos.y))
       })
@@ -128,14 +127,17 @@ export default {
         height += item.clientHeight;
         this.listHeight.push(height)
       }
+    },
+    _drop (target) {
+      this.$refs.shopcart.drop(target)
+    },
+    ballDrop (target) {
+      this._drop(target)
     }
   },
   components: {
     VShopCart,
     VCartcontrol
-  },
-  events: {
-
   }
 }
 

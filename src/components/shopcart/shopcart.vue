@@ -18,11 +18,11 @@
       </div>
     </div>
     <div class="ball-container">
-      <div v-for="ball in balls" v-show="ball.show">
-        <transition>
-          <div class="inner"></div>
-        </transition>
-      </div>
+        <div v-for="ball in balls">
+          <transition name="drop">
+            <div  v-show="ball.show" class="ball"></div>
+          </transition>
+        </div>
     </div>
   </div>
 </template>
@@ -67,8 +67,9 @@ export default {
         },
         {
           show: false
-        },
-      ]
+        }
+      ],
+      dropBalls: []
     }
   },
   computed: {
@@ -101,6 +102,19 @@ export default {
         return 'enough'
       } else {
         return 'not-enough'
+      }
+    }
+  },
+  methods: {
+    drop (el) {
+      for (let i = 0; i < this.balls.length; i++) {
+        let ball = this.balls[i];
+        if (!ball.show) {
+          ball.show = true;
+          ball.el = el;
+          this.dropBalls.push(ball);
+          return
+        }
       }
     }
   }
@@ -203,9 +217,15 @@ export default {
         left: 32px
         bottom: 22px
         z-index: 200
-        .inner
-          width: 16px
-          height: 16px
-          border-radius: 50%
-          background: rgb(0, 160, 220)
+        width: 16px
+        height: 16px
+        border-radius: 50%
+        background: rgb(0, 160, 220)
+        &.drop-enter-active
+          transition: all .3s ease;
+        &.drop-leave-active
+            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+        &.drop-enter, &.drop-leave-to
+            transform: translateX(10px);
+            opacity: 0;
 </style>
