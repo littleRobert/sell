@@ -19,8 +19,15 @@
     </div>
     <div class="ball-container">
         <div v-for="ball in balls">
-          <transition name="drop">
-            <div  v-show="ball.show" class="ball"></div>
+          <transition
+            name="drop"
+            @before-enter="beforeEnter"
+            @enter="enter"
+            @leave="leave"
+          >
+            <div  v-show="ball.show" class="ball">
+              <div class="inner inner-hook"></div>
+            </div>
           </transition>
         </div>
     </div>
@@ -106,6 +113,41 @@ export default {
     }
   },
   methods: {
+    beforeEnter (el) {
+      for (let i = 0; i < this.balls.length; i ++) {
+        let ball = this.balls[i];
+        if (ball.show) {
+          let rect = ball.el.getBoundingClientRect();
+          let x = rect.left - 32;
+          let y = -(window.innerHeight - rect.top - 22);
+          console.log(x);
+          el.style.display = '';
+          el.style.webkitTransform = `translate3d(0,${y}px,0)`;
+          el.style.transform = `translate3d(0,${y}px,0)`;
+          let inner = el.getElementsByClassName('inner-hook')[0];
+          inner.style.webkitTransform = `translate3d(${x}px,0,0)`;
+          inner.style.transform = `translate3d(${x}px,0,0)`;
+        }
+      }
+    },
+    enter (el) {
+      /* eslint-disable no-unused-vars */
+      let rf = el.offsetHeight;
+      this.$nextTick(() => {
+        el.style.webkitTransform = 'translate3d(0,0,0)';
+        el.style.transform = 'translate3d(0,0,0)';
+        let inner = el.getElementsByClassName('inner-hook')[0];
+        inner.style.webkitTransform = 'translate3d(0,0,0)';
+        inner.style.transform = 'translate3d(0,0,0)';
+      });
+    },
+    leave (el) {
+      let ball = this.dropBalls.shift();
+      if (ball) {
+        ball.show = false;
+        el.style.display = 'none';
+      }
+    },
     drop (el) {
       for (let i = 0; i < this.balls.length; i++) {
         let ball = this.balls[i];
@@ -119,7 +161,6 @@ export default {
     }
   }
 }
-
 </script>
 
 <style lang="stylus" scoped>
@@ -217,15 +258,12 @@ export default {
         left: 32px
         bottom: 22px
         z-index: 200
-        width: 16px
-        height: 16px
-        border-radius: 50%
-        background: rgb(0, 160, 220)
         &.drop-enter-active
-          transition: all .3s ease;
-        &.drop-leave-active
-            transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
-        &.drop-enter, &.drop-leave-to
-            transform: translateX(10px);
-            opacity: 0;
+          transition: all 0.4s cubic-bezier(0.49, -0.29, 0.75, 0.41)
+          .inner
+            width: 16px
+            height: 16px
+            border-radius: 50%
+            background: rgb(0, 160, 220)
+            transition: all 0.4s linear
 </style>
